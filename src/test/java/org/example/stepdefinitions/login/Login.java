@@ -1,10 +1,12 @@
 // java
 package org.example.stepdefinitions.login;
 
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.Before;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.actions.Open;
@@ -22,6 +24,10 @@ import org.example.tasks.login.LoginTask;
 public class Login {
 
     private static final String ACTOR_NAME = "Usuario";
+    @BeforeAll
+    public static void setupDriver() {
+        WebDriverManager.chromedriver().setup();
+    }
 
     @Before
     public void setStage(){

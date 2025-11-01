@@ -1,7 +1,8 @@
-@Login
+@Regresion @Login
 Feature: CP01 - Validar inicio de sesión
-
-  Background: Validar el inicio de sesion con credenciales validas e invalidas
+    Como usuario del sistema OrangeHRM
+    Quiero validar el inicio de sesión con credenciales correctas
+    Para acceder al módulo principal de la aplicación
 
   @CredencialesValidas
   Scenario: 1 - Validar login con credenciales correctas
