@@ -15,8 +15,25 @@ steps:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
+    jdkVersionOption: '1.17'  # Java 17 para compatibilidad
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    goals: 'clean verify'  # Cambiado de 'package' a 'verify' para ejecutar tests
+    options: '-Dserenity.take.screenshots=FOR_EACH_ACTION -Dwebdriver.driver=remote'
+
+- task: Maven@3
+  displayName: 'Generate Serenity Aggregate Reports'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    jdkArchitectureOption: 'x64'
+    goals: 'serenity:aggregate'
+    options: '-Dserenity.compress.filenames=true'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Serenity Reports'
+  inputs:
+    pathToPublish: 'target/site/serenity'
+    artifactName: 'SerenityTestReports'
